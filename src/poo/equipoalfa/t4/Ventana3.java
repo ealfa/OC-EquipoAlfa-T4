@@ -108,7 +108,7 @@ public class Ventana3 extends JFrame implements ActionListener {
         } else if (e.getSource() == cmdPegar) {
             JOptionPane.showMessageDialog(null, "Presionaste Pegar");
         } else if (e.getSource() == cmdVolverAlMenu) {
-            JOptionPane.showMessageDialog(null, "Presionaste Pegar");
+            JOptionPane.showMessageDialog(null, "Presionaste Volver Al Menú");
             Menu menu = new Menu();
         } else if (e.getSource() == cmdCancelar) {
             salir();
