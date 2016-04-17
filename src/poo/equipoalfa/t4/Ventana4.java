@@ -33,6 +33,8 @@ public class Ventana4 extends JFrame implements ActionListener {
         //Programamos la X para cerrar la ventana.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        setLayout(new FlowLayout());
+        
         //Paso 1. Crear los JMenuItems
         cmdAbrir = new JMenuItem("Abrir");
         cmdCerrar = new JMenuItem("Cerrar");
@@ -59,6 +61,8 @@ public class Ventana4 extends JFrame implements ActionListener {
         menuEdicion.add(cmdCopiar);
         menuEdicion.add(cmdPegar);
         
+        add(cmdIdTarjeta);
+        
         add(cmdAceptar);
         add(cmdCancelar);
 
@@ -76,6 +80,7 @@ public class Ventana4 extends JFrame implements ActionListener {
         cmdPegar.addActionListener(this);
         
         cmdAceptar.addActionListener(this);
+        cmdCancelar.addActionListener(this);
     }
 
     private void salir() {
@@ -99,10 +104,10 @@ public class Ventana4 extends JFrame implements ActionListener {
         } else if (e.getSource() == cmdAceptar) {
             JOptionPane.showMessageDialog(null, "Introdujistre los Datos");
             String idTarjeta = cmdIdTarjeta.getText();
-            if (! (idTarjeta == "")) {
+            if (! ("".equals(idTarjeta))) {
                 readFile(idTarjeta);
                 for (int i = 0; i < 100; i++) {
-                    if (idTarjeta == MonederoElectronico.clientes[3][i]) {
+                    if (idTarjeta == null ? MonederoElectronico.clientes[3][i] == null : idTarjeta.equals(MonederoElectronico.clientes[3][i])) {
                         JOptionPane.showMessageDialog(null, "Nombre Del Cliente: " + MonederoElectronico.clientes[0][i]);
                         JOptionPane.showMessageDialog(null, "Saldo: " + MonederoElectronico.clientes[5][i]);
                         return;
@@ -110,7 +115,7 @@ public class Ventana4 extends JFrame implements ActionListener {
                 }
                 JOptionPane.showMessageDialog(null, "El Id de la Tajeta del Cliente no se encuentra en nuestra base de datos. De favor introduzcala nuevamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "Uno de los cuadros de texto no estan completos. De favor completelos y vuelva a introducir los datos.");
+                JOptionPane.showMessageDialog(null, "Al menos uno de los cuadros de texto no estan completos. Por favor complete los datos y vuelva a introducir los datos.");
             }
         }
     }

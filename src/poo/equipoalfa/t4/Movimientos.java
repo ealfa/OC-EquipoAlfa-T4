@@ -12,7 +12,8 @@ import java.awt.event.*;
  * @author jesus_ignacio_159
  */
 public class Movimientos extends JFrame implements ActionListener {
-    JMenuItem cmdAbrir, cmdCerrar, cmdSalir,cmdCopiar,cmdPegar, cmdRegistroDeCompras, cmdPagos, cmdConsultaDeSaldo;
+    JMenuItem cmdAbrir, cmdCerrar, cmdSalir, cmdCopiar, cmdPegar;
+    JButton cmdRegistroDeComprasB, cmdPagosB, cmdConsultaDeSaldoB;
     JMenu menuArchivo, menuEdicion;
     JMenuBar braMenu;
     
@@ -24,44 +25,55 @@ public class Movimientos extends JFrame implements ActionListener {
         setBounds(200,200,800,500); //x,y,ancho,alto
         //Programamos la X para cerrar la ventana.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        setLayout(new FlowLayout());
+        
         //Paso 1. Crear los JMenuItems
         cmdAbrir = new JMenuItem("Abrir");
         cmdCerrar = new JMenuItem("Cerrar");
         cmdSalir = new JMenuItem("Salir");
-        cmdSalir = new JMenuItem("RegistroDeCompras");
-        cmdSalir = new JMenuItem("Pagos");
-        cmdSalir = new JMenuItem("ConsultaDeSaldo");
         cmdCopiar = new JMenuItem("Copiar");
         cmdPegar = new JMenuItem("Pegar");
+        
+        cmdRegistroDeComprasB = new JButton("Registro De Compras");
+        cmdPagosB = new JButton("Pagos");
+        cmdConsultaDeSaldoB = new JButton("Consulta De Saldo");
+        
         //Paso 2. Creamos los JMenus
         menuArchivo = new JMenu("Archivo");
         menuEdicion = new JMenu("Edicion");
+        
         //Paso 3. Creamos la Barra JMenuBar
         braMenu = new JMenuBar();
+        
         //Paso 4. Agregar los items a los menus
         menuArchivo.add(cmdAbrir);
         menuArchivo.add(cmdCerrar);
         menuArchivo.add(cmdSalir);
-        menuArchivo.add(cmdRegistroDeCompras);
-        menuArchivo.add(cmdPagos);
-        menuArchivo.add(cmdConsultaDeSaldo);
         menuEdicion.add(cmdCopiar);
         menuEdicion.add(cmdPegar);
+        
+        add(cmdRegistroDeComprasB);
+        add(cmdPagosB);
+        add(cmdConsultaDeSaldoB);
+        
         //Paso 5. Agregar los menus a la barra
         braMenu.add(menuArchivo);
         braMenu.add(menuEdicion);
         setJMenuBar(braMenu);
+        
         setVisible(true);
         
         //Paso 6. Que los comandos ESCUCHEN
         cmdAbrir.addActionListener(this);
         cmdCerrar.addActionListener(this);
         cmdSalir.addActionListener(this);
-        cmdRegistroDeCompras.addActionListener(this);
-        cmdPagos.addActionListener(this);
-        cmdConsultaDeSaldo.addActionListener(this);
         cmdCopiar.addActionListener(this);
         cmdPegar.addActionListener(this);
+        
+        cmdRegistroDeComprasB.addActionListener(this);
+        cmdPagosB.addActionListener(this);
+        cmdConsultaDeSaldoB.addActionListener(this);
     }
     
     private void salir(){
@@ -80,13 +92,13 @@ public class Movimientos extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Presionaste Copiar");
         } else if (e.getSource()==cmdPegar){
             JOptionPane.showMessageDialog(null, "Presionaste Pegar"); 
-        } else if (e.getSource() == cmdRegistroDeCompras){
+        } else if (e.getSource() == cmdRegistroDeComprasB){
             JOptionPane.showMessageDialog(null, "Presionaste RegistroDeCompras"); 
             Ventana2 ventana2 = new Ventana2();
-        } else if (e.getSource() == cmdPagos){
+        } else if (e.getSource() == cmdPagosB){
             JOptionPane.showMessageDialog(null, "Presionaste Pagos"); 
             Ventana3 ventana3 = new Ventana3();
-        } else if (e.getSource() == cmdConsultaDeSaldo){
+        } else if (e.getSource() == cmdConsultaDeSaldoB){
             JOptionPane.showMessageDialog(null, "Presionaste Consulta De Saldo");
             Ventana4 ventana4 = new Ventana4();
         }

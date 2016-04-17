@@ -12,7 +12,8 @@ import java.awt.event.*;
  * @author jesus_ignacio_159
  */
 public class Clientes extends JFrame implements ActionListener {
-    JMenuItem cmdAbrir, cmdCerrar, cmdSalir,cmdCopiar,cmdPegar, cmdAltaDeClientes;
+    JMenuItem cmdAbrir, cmdCerrar, cmdSalir,cmdCopiar,cmdPegar;
+    JButton cmdAltaDeClientesB;
     JMenu menuArchivo, menuEdicion;
     JMenuBar braMenu;
     
@@ -24,38 +25,50 @@ public class Clientes extends JFrame implements ActionListener {
         setBounds(200,200,800,500); //x,y,ancho,alto
         //Programamos la X para cerrar la ventana.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        setLayout(new FlowLayout());
+        
         //Paso 1. Crear los JMenuItems
         cmdAbrir = new JMenuItem("Abrir");
         cmdCerrar = new JMenuItem("Cerrar");
         cmdSalir = new JMenuItem("Salir");
-        cmdAltaDeClientes = new JMenuItem("Alta De Clientes");
         cmdCopiar = new JMenuItem("Copiar");
         cmdPegar = new JMenuItem("Pegar");
+        
+        cmdAltaDeClientesB = new JButton("Alta De Clientes");
+        
         //Paso 2. Creamos los JMenus
         menuArchivo = new JMenu("Archivo");
         menuEdicion = new JMenu("Edicion");
+        
         //Paso 3. Creamos la Barra JMenuBar
         braMenu = new JMenuBar();
+        
         //Paso 4. Agregar los items a los menus
         menuArchivo.add(cmdAbrir);
         menuArchivo.add(cmdCerrar);
         menuArchivo.add(cmdSalir);
-        menuArchivo.add(cmdAltaDeClientes);
         menuEdicion.add(cmdCopiar);
         menuEdicion.add(cmdPegar);
+        
+        add(cmdAltaDeClientesB);
+        
         //Paso 5. Agregar los menus a la barra
         braMenu.add(menuArchivo);
         braMenu.add(menuEdicion);
         setJMenuBar(braMenu);
+        
+        setSize(700,400);
         setVisible(true);
         
         //Paso 6. Que los comandos ESCUCHEN
         cmdAbrir.addActionListener(this);
         cmdCerrar.addActionListener(this);
         cmdSalir.addActionListener(this);
-        cmdAltaDeClientes.addActionListener(this);
         cmdCopiar.addActionListener(this);
         cmdPegar.addActionListener(this);
+        
+        cmdAltaDeClientesB.addActionListener(this);
     }
     
     private void salir(){
@@ -74,7 +87,7 @@ public class Clientes extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Presionaste Copiar");
         }else if (e.getSource()==cmdPegar){
             JOptionPane.showMessageDialog(null, "Presionaste Pegar"); 
-        } else if (e.getSource() == cmdAltaDeClientes){
+        } else if (e.getSource() == cmdAltaDeClientesB){
             JOptionPane.showMessageDialog(null, "Presionaste Alta De Clientes"); 
             Ventana1 ventana1 = new Ventana1();
         }

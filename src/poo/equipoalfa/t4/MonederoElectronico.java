@@ -35,6 +35,15 @@ public class MonederoElectronico {
     public MonederoElectronico(int idMonedero){
         this.ID_MONEDERO = idMonedero;
         this.saldo = 0;
+        
+        for (int i = 0; i < 100; i++) {
+            clientes[0][i] = "";
+            clientes[1][i] = "";
+            clientes[2][i] = "";
+            clientes[3][i] = "";
+            clientes[4][i] = "";
+            clientes[5][i] = "0";
+        }
     }
     
     /**

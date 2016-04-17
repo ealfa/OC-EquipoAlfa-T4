@@ -23,7 +23,7 @@ public class Ventana3 extends JFrame implements ActionListener {
 
     JMenuItem cmdAbrir, cmdCerrar, cmdSalir, cmdCopiar, cmdPegar;
     JTextField cmdIdTarjeta, cmdCantidad;
-    JButton cmdAceptar, cmdCancelar;
+    JButton cmdAceptar, cmdCancelar, cmdVolverAlMenu;
     JMenu menuArchivo, menuEdicion;
     JMenuBar braMenu;
 
@@ -35,6 +35,9 @@ public class Ventana3 extends JFrame implements ActionListener {
         setBounds(200, 200, 800, 500); //x,y,ancho,alto
         //Programamos la X para cerrar la ventana.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        setLayout(new FlowLayout());
+        
         //Paso 1. Crear los JMenuItems
         cmdAbrir = new JMenuItem("Abrir");
         cmdCerrar = new JMenuItem("Cerrar");
@@ -47,6 +50,8 @@ public class Ventana3 extends JFrame implements ActionListener {
         
         cmdAceptar = new JButton("Aceptar");
         cmdCancelar = new JButton("Cancelar");
+        cmdVolverAlMenu = new JButton("Volver al Menú");
+
 
         //Paso 2. Creamos los JMenus
         menuArchivo = new JMenu("Archivo");
@@ -65,11 +70,13 @@ public class Ventana3 extends JFrame implements ActionListener {
         
         add(cmdAceptar);
         add(cmdCancelar);
+        add(cmdVolverAlMenu);
         
         //Paso 5. Agregar los menus a la barra
         braMenu.add(menuArchivo);
         braMenu.add(menuEdicion);
         setJMenuBar(braMenu);
+        
         setVisible(true);
 
         //Paso 6. Que los comandos ESCUCHEN
@@ -80,6 +87,8 @@ public class Ventana3 extends JFrame implements ActionListener {
         cmdPegar.addActionListener(this);
         
         cmdAceptar.addActionListener(this);
+        cmdCancelar.addActionListener(this);
+        cmdVolverAlMenu.addActionListener(this);
     }
 
     private void salir() {
@@ -98,20 +107,23 @@ public class Ventana3 extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Presionaste Copiar");
         } else if (e.getSource() == cmdPegar) {
             JOptionPane.showMessageDialog(null, "Presionaste Pegar");
+        } else if (e.getSource() == cmdVolverAlMenu) {
+            JOptionPane.showMessageDialog(null, "Presionaste Pegar");
+            Menu menu = new Menu();
         } else if (e.getSource() == cmdCancelar) {
             salir();
         } else if (e.getSource() == cmdAceptar) {
             JOptionPane.showMessageDialog(null, "Introdujiste los Datos");
             String idTarjeta = cmdIdTarjeta.getText();
             String cantidad = cmdCantidad.getText();
-            if (!(idTarjeta == "" || cantidad == "")) {
+            if (!("".equals(idTarjeta) || "".equals(cantidad))) {
                 try {
                     writeToFile(idTarjeta);
                 } catch (IOException ex) {
                     Logger.getLogger(Ventana1.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 for (int i = 0; i < 100; i++) {
-                    if (MonederoElectronico.clientes[3][i] == idTarjeta) {
+                    if (MonederoElectronico.clientes[3][i] == null ? idTarjeta == null : MonederoElectronico.clientes[3][i].equals(idTarjeta)) {
                         int saldo = Integer.parseInt(MonederoElectronico.clientes[5][i]) + Integer.parseInt(cantidad);
                         MonederoElectronico.clientes[5][i] = Integer.toString(saldo);
                         return;
@@ -119,7 +131,7 @@ public class Ventana3 extends JFrame implements ActionListener {
                 }
                 JOptionPane.showMessageDialog(null, "El Id de la Tajeta del Cliente no se encuentra en nuestra base de datos. De favor introduzcala nuevamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "Uno de los cuadros de texto no estan completos. Por favor completelos y vuelva a introducir los datos.");
+                JOptionPane.showMessageDialog(null, "Al menos uno de los cuadros de texto no estan completos. Por favor complete los datos y vuelva a introducir los datos.");
             }
         }
     }

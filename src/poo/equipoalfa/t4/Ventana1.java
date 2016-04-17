@@ -20,7 +20,7 @@ public class Ventana1 extends JFrame implements ActionListener {
 
     JMenuItem cmdAbrir, cmdCerrar, cmdSalir, cmdCopiar, cmdPegar;
     JTextField cmdNombreDeCliente, cmdEmail, cmdTelefono, cmdIdTarjeta;
-    JButton cmdAceptar, cmdCancelar;
+    JButton cmdAceptar, cmdCancelar, cmdVolverAlMenu;
     JMenu menuArchivo, menuEdicion;
     JMenuBar braMenu;
 
@@ -33,6 +33,8 @@ public class Ventana1 extends JFrame implements ActionListener {
         setBounds(200, 200, 800, 500); //x,y,ancho,alto
         //Programamos la X para cerrar la ventana.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        setLayout(new FlowLayout());
 
         //Paso 1. Crear los JMenuItems
         cmdAbrir = new JMenuItem("Abrir");
@@ -48,6 +50,7 @@ public class Ventana1 extends JFrame implements ActionListener {
         
         cmdAceptar = new JButton("Aceptar");
         cmdCancelar = new JButton("Cancelar");
+        cmdVolverAlMenu = new JButton("Volver al Menú");
 
         //Paso 2. Creamos los JMenus
         menuArchivo = new JMenu("Archivo");
@@ -70,11 +73,13 @@ public class Ventana1 extends JFrame implements ActionListener {
         
         add(cmdAceptar);
         add(cmdCancelar);
+        add(cmdVolverAlMenu);
 
         //Paso 5. Agregar los menus a la barra
         braMenu.add(menuArchivo);
         braMenu.add(menuEdicion);
         setJMenuBar(braMenu);
+        
         setVisible(true);
 
         //Paso 6. Que los comandos ESCUCHEN
@@ -86,6 +91,7 @@ public class Ventana1 extends JFrame implements ActionListener {
         
         cmdAceptar.addActionListener(this);
         cmdCancelar.addActionListener(this);
+        cmdVolverAlMenu.addActionListener(this);
     }
 
     private void salir() {
@@ -104,6 +110,9 @@ public class Ventana1 extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Presionaste Copiar");
         } else if (e.getSource() == cmdPegar) {
             JOptionPane.showMessageDialog(null, "Presionaste Pegar");
+        } else if (e.getSource() == cmdVolverAlMenu) {
+            JOptionPane.showMessageDialog(null, "Presionaste Pegar");
+            Menu menu = new Menu();
         } else if (e.getSource() == cmdCancelar) {
             salir();
         } else if (e.getSource() == cmdAceptar) {
@@ -113,7 +122,7 @@ public class Ventana1 extends JFrame implements ActionListener {
             String telefono = cmdTelefono.getText();
             String idTarjeta = cmdIdTarjeta.getText();
 
-            if (!(nombreDeCliente == "" || email == "" || telefono == "" || idTarjeta == "")) {
+            if (!((nombreDeCliente == "" || email == "" || telefono == "" || idTarjeta == ""))) {
                 try {
                     writeToFile(nombreDeCliente);
                 } catch (IOException ex) {
@@ -121,7 +130,7 @@ public class Ventana1 extends JFrame implements ActionListener {
                 }
 
                 for (int i = 0; i < 100; i++) {
-                    if (MonederoElectronico.clientes[0][i] == null) {
+                    if (MonederoElectronico.clientes[0][i] == "") {
                         MonederoElectronico.clientes[0][i] = nombreDeCliente;
                         MonederoElectronico.clientes[1][i] = email;
                         MonederoElectronico.clientes[2][i] = telefono;
@@ -130,7 +139,7 @@ public class Ventana1 extends JFrame implements ActionListener {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Uno de los cuadros de texto no estan completos. Por favor completelos y vuelva a introducir los datos.");
+                JOptionPane.showMessageDialog(null, "Al menos uno de los cuadros de texto no estan completos. Por favor complete los datos y vuelva a introducir los datos.");
             }
         }
     }
